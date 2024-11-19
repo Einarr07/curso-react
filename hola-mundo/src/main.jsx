@@ -1,8 +1,6 @@
 import { createRoot } from 'react-dom/client'
-import {Fragment} from "react";
-import {App} from './App.jsx'
 import "./index.css"
-import {TwitterFollowCard} from "./TwitterFollowCard.jsx";
+import {App} from "./App.jsx";
 
 /* Estilos de text
 * PascalCase: este se utiliza para los componentes
@@ -15,7 +13,6 @@ import {TwitterFollowCard} from "./TwitterFollowCard.jsx";
 
 createRoot(document.getElementById('root')).render(
     <>
-        <TwitterFollowCard userName="einarr07" name="Mateo Congo" />
-        <TwitterFollowCard userName="einarr07" name="Mateo Congo" />
+       <App />
     </>
 )

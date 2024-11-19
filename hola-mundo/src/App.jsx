@@ -1,24 +1,32 @@
 import "./App.css"
-export function App() {
-    return (
-        <article className="tw-followCard">
-            <header className="tw-followCard-header">
-                <img className="tw-followCard-avatar" alt="Avatar" src="https://avatars.githubusercontent.com/u/96399138?v=4"/>
-                    <div className="tw-followCard-info">
-                        <strong>
-                            Mateo Congo
-                        </strong>
-                        <span className="tw-followCard-infoUserName">
-                            @Einarr07
-                        </span>
-                    </div>
-            </header>
+import {TwitterFollowCard} from "./TwitterFollowCard.jsx";
 
-            <aside>
-                <button className="tw-followCard-button">
-                    Seguir
-                </button>
-            </aside>
-        </article>
+export function App() {
+    const format = (userName) => `@${userName}`;
+
+    const nichol = {isFollowing: false, userName: "nicolemotoche29 ", name: "Nicole", codigo: "85316345?v=4"};
+
+    return (
+        <section>
+            <TwitterFollowCard
+                formatUserName={format}
+                userName="einarr07"
+                name="Mateo Congo"
+                codigo="96399138?v=4"
+            />
+
+            <TwitterFollowCard
+                formatUserName={format}
+                userName="erick200011"
+                name="Erick Palomo"
+                codigo="75103508?v=4"
+            />
+
+            {/* Los 3 puntos son el: 'restOperator' hace que se le pasen todas las propiedades de un objeto (Generalmente es mala practica)*/}
+            <TwitterFollowCard
+                {...nichol}
+                formatUserName={format}
+            />
+        </section>
     )
 }
