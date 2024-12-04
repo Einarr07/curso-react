@@ -1,34 +1,23 @@
-import {useEffect, useState} from "react";
-
-const CAT_ENPOINT_RANDOM_FACT = 'https://catfact.ninja/fact'
-//const CAT_ENPOINT_IMAGE_URL = `https://cataas.com/cat/says/${firstWord}?fontSize=50&fontColor=red&json=true`
+import './App.css'
+import { useCatImage } from './hooks/useCatImage.js'
+import { useCatFact } from './hooks/useCatFact.js'
 
 export function App () {
-    const [fact, setFact] = useState()
-    const [imageUrl, setImageUrl] = useState()
+  const { fact, refreshFact } = useCatFact()
+  const { imageUrl } = useCatImage({ fact })
 
-    useEffect(() => {
+  const handleClick = async () => {
+    refreshFact()
+  }
 
-        fetch(CAT_ENPOINT_RANDOM_FACT)
-            .then(res => res.json())
-            .then(data => {
-                const {fact} = data;
-                setFact(fact)
+  return (
+    <main>
+      <h1>App de gatitos</h1>
 
-                const threeFriestWords = fact.split(' ', 3).join(' ')
-                console.log(threeFriestWords)
+      <button onClick={handleClick}>Get new fact</button>
 
-                fetch(`https://cataas.com/cat/says/${threeFriestWords}?fontSize=50&fontColor=red&json=true`)
-                    .then(res => res.json())
-                    .then(response => {response})
-            })
-
-    },[])
-
-    return (
-        <main>
-            <h1>App de gatitos</h1>
-            { fact && <p>Fact aleatorio: {fact}</p>}
-        </main>
-    )
+      {fact && <p>{fact}</p>}
+      {imageUrl && <img src={imageUrl} alt={`Image extracted using the first three words for ${fact}`} />}
+    </main>
+  )
 }

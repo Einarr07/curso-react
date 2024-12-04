@@ -30,7 +30,7 @@ npm i react react-dom -E
 
 3.- Una vez hecho esto tenemos que cambiar la extención del archivo de `js` a `jsx` porque sino este no va a se capas de renderizarse
 
-4.- Instalamos el linter (una herramienta de programación que analiza el cósigo para detectar errores o vulnerabilidades)
+4.- Instalamos el linter (una herramienta de programación que analiza el código para detectar errores o vulnerabilidades)
 
 ```
 npm i standard -D
