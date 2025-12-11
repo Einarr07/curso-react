@@ -9,10 +9,11 @@
 // </TodoList>
 //
 // Everything inside <TodoList> ... </TodoList> is passed as "children".
+import './TodoList.css'
 
 function TodoList({children}) {
     return (
-        <ul>
+        <ul className='TodoList'>
             {children}
         </ul>
     );
