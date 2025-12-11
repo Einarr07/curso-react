@@ -1,12 +1,21 @@
-function TodoList(props) {
-    return (
-        <>
+// "children" is a special prop that React automatically provides.
+// It represents the elements found between the opening and closing tags
+// of the component when it is used.
+//
+// Example:
+// <TodoList>
+//     <TodoItem />
+//     <TodoItem />
+// </TodoList>
+//
+// Everything inside <TodoList> ... </TodoList> is passed as "children".
 
-            <ul>
-                {props.children}
-            </ul>
-        </>
-    )
+function TodoList({children}) {
+    return (
+        <ul>
+            {children}
+        </ul>
+    );
 }
 
-export {TodoList}
+export {TodoList};
