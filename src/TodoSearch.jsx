@@ -1,20 +1,19 @@
 import './TodoSearch.css'
 import React from 'react'
 
-function TodoSearch() {
-    // This is REACT STATE. It returns an array with two values:
-    // 1) searchValue -> the current value of the state (read-only / immutable)
-    // 2) setSearchValue -> The function used to update that state
-    // We can also provide an initial state value; in this case, an empty string
-    const [searchValue, setSearchValue] = React.useState('')
-
-    console.log(`The user search is ${searchValue}`)
+function TodoSearch(
+    {
+        searchValue,
+        setSearchValue
+    }) {
     return (
         <>
             <input
                 placeholder='Search...'
                 className='TodoSearch'
+                // The input value is controlled by the state (searchValue)
                 value={searchValue}
+                // When the user types, we update the state with the new value
                 onChange={(event) => {
                     setSearchValue(event.target.value)
                 }}
