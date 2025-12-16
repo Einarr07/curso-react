@@ -28,12 +28,28 @@ function App() {
         (todos) => {
             const todoText = todos.text.toLowerCase();
             const searchText = searchValue.toLowerCase();
-            
+
             return todoText.includes(searchText);
         }
     )
 
-    console.log(`The user search is ${searchValue}`)
+    const completeTodo = (text) => {
+        const newTodos = [...todos]; // copy the state array
+        const todoIndex = newTodos.findIndex(
+            (todo) => todo.text === text
+        );
+        newTodos[todoIndex].completed = true;
+        setTodos(newTodos)
+    }
+
+    const deleteTodo = (text) => {
+        const newTodos = [...todos]; // copy the state array
+        const todoIndex = newTodos.findIndex(
+            (todo) => todo.text === text
+        );
+        newTodos.splice(todoIndex, 1);
+        setTodos(newTodos)
+    }
 
     return (
         <>
@@ -53,6 +69,8 @@ function App() {
                     <TodoItem key={todo.text}
                               text={todo.text}
                               completed={todo.completed}
+                              onComplete={() => completeTodo(todo.text)}
+                              onDelete={() => deleteTodo(todo.text)}
                     />
                 ))}
             </TodoList>
