@@ -16,17 +16,29 @@ import React from "react";
 
 // localStorage.removeItem('TODOS_1')
 
-function App() {
+function useLocalStorage(itemName, initialValue) {
 
-    const localStorageTodos = localStorage.getItem('TODOS_V1');
+    const localStorageItem = localStorage.getItem(itemName);
 
-    let parsedTodos;
-    if (!localStorageTodos) {
-        localStorage.setItem('TODOS_V1', JSON.stringify([]));
-        parsedTodos = [];
+    let parsedItem;
+    if (!localStorageItem) {
+        localStorage.setItem(itemName, JSON.stringify(initialValue));
+        parsedItem = initialValue;
     } else {
-        parsedTodos = JSON.parse(localStorageTodos);
+        parsedItem = JSON.parse(localStorageItem);
     }
+
+    const [item, setItem] = React.useState(parsedItem);
+
+    const saveItem = (newItem) => {
+        localStorage.setItem(itemName, JSON.stringify(newItem));
+        setItem(newItem);
+    }
+
+    return [item, saveItem];
+}
+
+function App() {
 
     // This is REACT STATE. It returns an array with two values:
     // 1) searchValue -> the current value of the state (read-only / immutable)
@@ -34,7 +46,7 @@ function App() {
     // We can also provide an initial state value; in this case, an empty string
     const [searchValue, setSearchValue] = React.useState('');
 
-    const [todos, setTodos] = React.useState(parsedTodos);
+    const [todos, saveTodo] = useLocalStorage('TODOS_V1', []);
 
     // Derived State
     const completedTodos = todos.filter(todos => todos.completed === true).length;
@@ -48,10 +60,6 @@ function App() {
         }
     )
 
-    const saveTodo = (newTodos) => {
-        localStorage.setItem('TODOS_V1', JSON.stringify(newTodos));
-        setTodos(newTodos);
-    }
 
     const completeTodo = (text) => {
         const newTodos = [...todos]; // copy the state array
