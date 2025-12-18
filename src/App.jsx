@@ -1,8 +1,8 @@
-import {TodoCounter} from './TodoCounter'
-import {TodoSearch} from "./TodoSearch.jsx";
-import {TodoList} from "./TodoList.jsx";
-import {CreateTodoButton} from "./CreateTodoButton.jsx";
-import {TodoItem} from "./TodoItem.jsx";
+import {TodoCounter} from './components/TodoCounter/TodoCounter.jsx'
+import {TodoSearch} from "./components/TodoSearch/TodoSearch.jsx";
+import {TodoList} from "./components/TodoList/TodoList.jsx";
+import {CreateTodoButton} from "./components/CreateTodoButton/CreateTodoButton.jsx";
+import {TodoItem} from "./components/TodoItem/TodoItem.jsx";
 import React from "react";
 
 // const defaultTodos = [
