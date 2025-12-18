@@ -14,28 +14,52 @@ import React from "react";
 //
 // localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos))
 
-// localStorage.removeItem('TODOS_1')
+// localStorage.removeItem('TODOS_V1')
 
 function useLocalStorage(itemName, initialValue) {
 
-    const localStorageItem = localStorage.getItem(itemName);
+    const [item, setItem] = React.useState(initialValue);
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState(false);
 
-    let parsedItem;
-    if (!localStorageItem) {
-        localStorage.setItem(itemName, JSON.stringify(initialValue));
-        parsedItem = initialValue;
-    } else {
-        parsedItem = JSON.parse(localStorageItem);
-    }
 
-    const [item, setItem] = React.useState(parsedItem);
+    React.useEffect(() => {
+        setTimeout(() => {
+            try {
+                const localStorageItem = localStorage.getItem(itemName);
+
+                let parsedItem;
+
+
+                if (!localStorageItem) {
+                    localStorage.setItem(itemName, JSON.stringify(initialValue));
+                    parsedItem = initialValue;
+                } else {
+                    parsedItem = JSON.parse(localStorageItem);
+                    setItem(parsedItem);
+                }
+                setLoading(false);
+
+            } catch (e) {
+                setError(true);
+                setLoading(false);
+                console.error(e);
+            }
+        }, 2000)
+    }, []);
+
 
     const saveItem = (newItem) => {
         localStorage.setItem(itemName, JSON.stringify(newItem));
         setItem(newItem);
     }
 
-    return [item, saveItem];
+    return {
+        item,
+        saveItem,
+        loading,
+        error
+    };
 }
 
 function App() {
@@ -46,11 +70,17 @@ function App() {
     // We can also provide an initial state value; in this case, an empty string
     const [searchValue, setSearchValue] = React.useState('');
 
-    const [todos, saveTodo] = useLocalStorage('TODOS_V1', []);
+    const {
+        item: todos,
+        saveItem: saveTodo,
+        loading,
+        error
+    } = useLocalStorage('TODOS_V1', []);
 
     // Derived State
     const completedTodos = todos.filter(todos => todos.completed === true).length;
     const totalTodos = todos.length;
+
     const searchedTodos = todos.filter(
         (todos) => {
             const todoText = todos.text.toLowerCase();
@@ -93,6 +123,15 @@ function App() {
                 <TodoItem/>
 
                 */}
+
+                {loading && <p>Loading...</p>}
+
+                {error && <p>Error loading TODOS!!</p>}
+
+                {(!loading && searchedTodos.length === 0) && (
+                    <p>Create the first TODO</p>
+                )}
+
                 {searchedTodos.map(todo => (
                     <TodoItem key={todo.text}
                               text={todo.text}
