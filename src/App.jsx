@@ -4,6 +4,9 @@ import {TodoList} from "./components/TodoList/TodoList.jsx";
 import {CreateTodoButton} from "./components/CreateTodoButton/CreateTodoButton.jsx";
 import {TodoItem} from "./components/TodoItem/TodoItem.jsx";
 import React from "react";
+import {EmptyTodos} from "./components/EmptyTodos/EmptyTodos.jsx";
+import {TodosError} from "./components/TodosError/TodosError.jsx";
+import {TodosLoading} from "./components/TodosLoading/TodosLoading.jsx";
 
 // const defaultTodos = [
 //     {text: 'Take one course', completed: true},
@@ -124,12 +127,19 @@ function App() {
 
                 */}
 
-                {loading && <p>Loading...</p>}
+                {loading &&
+                    (<>
+                            <TodosLoading/>
+                            <TodosLoading/>
+                            <TodosLoading/>
+                        </>
+                    )
+                }
 
-                {error && <p>Error loading TODOS!!</p>}
+                {error && <TodosError/>}
 
                 {(!loading && searchedTodos.length === 0) && (
-                    <p>Create the first TODO</p>
+                    <EmptyTodos/>
                 )}
 
                 {searchedTodos.map(todo => (
