@@ -2,8 +2,10 @@
 // Here, the component receives two props: total and completed.
 // These props allow the component to display dynamic information.
 import './TodoCounter.css';
+import React from "react";
 
 function TodoCounter({total, completed}) {
+
     if (total !== completed) {
         return (
             <h1 className="TodoCounter">
