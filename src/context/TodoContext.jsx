@@ -10,6 +10,7 @@ function TodoProvider({children}) {
     // 2) setSearchValue -> The function used to update that state
     // We can also provide an initial state value; in this case, an empty string
     const [searchValue, setSearchValue] = React.useState('');
+    const [openModal, setOpenModal] = React.useState(false);
 
     const {
         item: todos,
@@ -41,6 +42,17 @@ function TodoProvider({children}) {
         saveTodo(newTodos)
     }
 
+    const addTodo = (text) => {
+        const newTodos = [...todos];
+        newTodos.push(
+            {
+                text,
+                completed: false,
+            }
+        );
+        saveTodo(newTodos);
+    }
+
     const deleteTodo = (text) => {
         const newTodos = [...todos]; // copy the state array
         const todoIndex = newTodos.findIndex(
@@ -49,6 +61,7 @@ function TodoProvider({children}) {
         newTodos.splice(todoIndex, 1);
         saveTodo(newTodos)
     }
+
 
     return (
         <TodoContext.Provider value={{
@@ -61,6 +74,9 @@ function TodoProvider({children}) {
             searchedTodos,
             completeTodo,
             deleteTodo,
+            openModal,
+            setOpenModal,
+            addTodo
         }}>
             {children}
         </TodoContext.Provider>

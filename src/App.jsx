@@ -8,6 +8,8 @@ import {EmptyTodos} from "./components/EmptyTodos/EmptyTodos.jsx";
 import {TodosError} from "./components/TodosError/TodosError.jsx";
 import {TodosLoading} from "./components/TodosLoading/TodosLoading.jsx";
 import {TodoContext} from "./context/TodoContext.jsx";
+import {Modal} from "./components/Modal/Modal.jsx";
+import {TodoForm} from "./components/TodoForm/TodoForm.jsx";
 
 function App() {
     const {
@@ -20,6 +22,8 @@ function App() {
         searchedTodos,
         completeTodo,
         deleteTodo,
+        openModal,
+        setOpenModal
     } = React.useContext(TodoContext);
 
     return (
@@ -59,7 +63,13 @@ function App() {
                 ))}
             </TodoList>
 
-            <CreateTodoButton/>
+            <CreateTodoButton setOpenModal={setOpenModal}/>
+
+            {openModal && (
+                <Modal>
+                    <TodoForm/>
+                </Modal>
+            )}
         </>
     )
 }
