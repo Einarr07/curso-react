@@ -1,6 +1,7 @@
 # 🚀 Iniciar un Proyecto React con Vite
 
-Este documento explica paso a paso cómo crear un nuevo proyecto de **React** utilizando **Vite**, así como los comandos más importantes para ejecutarlo y estructurarlo.
+Este documento explica paso a paso cómo crear un nuevo proyecto de **React** utilizando **Vite**, así como los comandos
+más importantes para ejecutarlo y estructurarlo.
 
 ---
 
@@ -77,6 +78,12 @@ npm run build
 ```
 
 Los archivos finales se generan en la carpeta `/dist`.
+
+Para visualizar lo que se construyo dentro de la carpeta `/dist`
+
+```bash
+npm run preview
+```
 
 ---
 
